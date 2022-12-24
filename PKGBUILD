@@ -1,0 +1,28 @@
+# Maintainer: Antonio Rojas <arojas@archlinux.org>
+# Contributor: Matheus Gabriel Werny de Lima <matheusgwdl@protonmail.com>
+# Contributor: Lokawn <39772448+Lokawn@users.noreply.github.com>
+
+pkgname=keysmith
+pkgver=22.11
+pkgrel=1
+pkgdesc='OTP client for Plasma Mobile and Desktop'
+license=(GPL3)
+arch=(x86_64)
+url='https://apps.kde.org/keysmith'
+depends=(kirigami2 ki18n kdbusaddons kwindowsystem libsodium qt5-svg hicolor-icon-theme)
+makedepends=(extra-cmake-modules)
+source=(https://download.kde.org/stable/plasma-mobile/$pkgver/$pkgname-$pkgver.tar.xz{,.sig})
+sha256sums=('65365cf3ec639d092206dbf1db0079c423a94cde5d59a917b3db0334f9d335aa'
+            'SKIP')
+validpgpkeys=(B3ED0BAE371BEDA00717921D18F4795C1CE7042B  # Carl Schwan <carl@carlschwan.eu>
+              0AAC775BB6437A8D9AF7A3ACFE0784117FBCE11D) # Bhushan Shah (mykolab address) <bshah@mykolab.com>
+
+build() {
+  cmake -B build -S $pkgname-$pkgver \
+    -DBUILD_TESTING=OFF # Disable warning application starts
+  cmake --build build
+}
+
+package() {
+  DESTDIR="$pkgdir" cmake --install build
+}
