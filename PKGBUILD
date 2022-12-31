@@ -19,7 +19,7 @@ validpgpkeys=(B3ED0BAE371BEDA00717921D18F4795C1CE7042B  # Carl Schwan <carl@carl
 
 build() {
   cmake -B build -S $pkgname-$pkgver \
-    -DBUILD_TESTING=OFF \ # Disable warning application starts
+    -DBUILD_TESTING=OFF \
     -DCMAKE_BUILD_TYPE=RelWithDebInfo
   cmake --build build
 }
